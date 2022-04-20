@@ -14,5 +14,10 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.1",
     "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   }
 }
