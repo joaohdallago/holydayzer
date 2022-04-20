@@ -1,7 +1,9 @@
 import express from 'express';
+import cors from 'cors';
 import dayjs from 'dayjs';
 
 const app = express();
+app.use(cors());
 
 const holidays = [
     { date: "1/1/2022", name: "Confraternização mundial" },
@@ -17,7 +19,7 @@ const holidays = [
     { date: "12/25/2022", name: "Natal" }
 ];
 
-const today = dayjs().format('MM/DD/YYYY');
+const today = dayjs().format('M/DD/YYYY');
 
 const todaysHoliday = holidays.find(holiday => holiday.date === today);
 
@@ -34,6 +36,23 @@ app.get('/is-today-holiday', (req, res) => {
     res.send(message)
 })
 
+app.get('/holidays/:month', (req, res) => {
+    const { month } = req.params;
+
+    if (month < 1 || month > 12) {
+        res.send('Insira um mês válido!')
+        return
+    };
+
+    const getMonth = (date) => {
+        return date.split('/')[0]
+    } 
+
+    const monthHolidays = holidays.filter(holiday =>  getMonth(holiday.date) === month)
+
+    res.send(monthHolidays)
+})
+
 app.listen(4000, () => {
-    console.log('server ta on')
+    console.log('server is open...')
 })
