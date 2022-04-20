@@ -44,11 +44,11 @@ app.get('/holidays/:month', (req, res) => {
         return
     };
 
-    const getMonth = (date) => {
-        return date.split('/')[0]
-    } 
-
-    const monthHolidays = holidays.filter(holiday =>  getMonth(holiday.date) === month)
+    const monthHolidays = holidays.filter(holiday =>  {
+        const holidayMonth = holiday.date.split('/')[0]
+        
+        return holidayMonth === month
+    })
 
     res.send(monthHolidays)
 })
